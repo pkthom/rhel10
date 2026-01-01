@@ -34,3 +34,33 @@ Create VM　（設定は以下画像のまま）
 以下画面になる　Install Red Hat Enterprise Linux 10.0　でよいが、時間があるためISOチェックもするので上から2番目（default）
 
 <img width="1568" height="917" alt="image" src="https://github.com/user-attachments/assets/c7d362ef-a76a-4f3f-805c-63ba3a449c9c" />
+
+言語選択
+
+<img width="1572" height="918" alt="image" src="https://github.com/user-attachments/assets/077c9fcb-ee0c-466a-beee-3058f23c056e" />
+
+インストール先を確認
+
+<img width="1570" height="919" alt="image" src="https://github.com/user-attachments/assets/a7557192-1e39-4147-b583-989e6cf24dce" />
+
+デフォルトのまま　完了
+
+<img width="1573" height="917" alt="image" src="https://github.com/user-attachments/assets/79f3ce57-0ae1-4b21-8559-23085516a990" />
+
+rootアカウントを作成
+
+<img width="1570" height="918" alt="image" src="https://github.com/user-attachments/assets/9c0d1986-c8b2-4a8d-b8b1-54a9da99a732" />
+
+有効化　し、パスワードを設定
+
+<img width="1570" height="918" alt="image" src="https://github.com/user-attachments/assets/00623edf-75ce-4b42-bd84-2678b032553e" />
+
+ユーザーの作成
+
+<img width="1570" height="920" alt="image" src="https://github.com/user-attachments/assets/5ed4b98c-3a50-4ea2-8360-3df485bac1cb" />
+
+「インストールの開始」をクリック
+
+インストール開始
+
+<img width="1571" height="919" alt="image" src="https://github.com/user-attachments/assets/7bd7852f-de3e-4ce9-a26f-d01cd57054c9" />
