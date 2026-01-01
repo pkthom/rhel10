@@ -64,3 +64,27 @@ rootアカウントを作成
 インストール開始
 
 <img width="1571" height="919" alt="image" src="https://github.com/user-attachments/assets/7bd7852f-de3e-4ce9-a26f-d01cd57054c9" />
+
+インストール完了　再起動をクリック
+
+<img width="1572" height="918" alt="image" src="https://github.com/user-attachments/assets/b1b96aca-1b86-4061-90bb-87a5ee028207" />
+
+起動　先ほど作った一般ユーザーでログイン
+
+<img width="1572" height="921" alt="image" src="https://github.com/user-attachments/assets/c5745dcc-7d81-44fa-8a51-85749624b2f0" />
+
+ISOは外しておく
+
+<img width="937" height="643" alt="image" src="https://github.com/user-attachments/assets/f3068e46-344c-4769-8765-4613dac88f74" />
+
+Terminalを開き、ip a をすると、既にNICが上がっており、DHCPでIPが付与されている
+
+固定IPに変更する
+```
+sudo nmcli connection modify ens18 ipv4.method manual
+sudo nmcli connection modify ens18 ipv4.addresses 10.20.30.42/24
+sudo nmcli connection modify ens18 ipv4.gateway 10.20.30.1
+sudo nmcli connection modify ens18 ipv4.dns "8.8.8.8,1.1.1.1"
+sudo nmcli connection up ens18
+```
+固定IPが付与され、他PCからもpingできる
