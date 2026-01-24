@@ -1,5 +1,11 @@
 # rhel10
 
+# INDEX
+
+- [VMを作成する(Proxmox)]()
+- [物理マシン作成(OptiPlex5040)]()
+
+
 ## VMを作成する(Proxmox)
 
 RedHatのアカウントを作った後、[公式ページ](https://developers.redhat.com/products/rhel/download#getredhatenterpriselinux7163)からISOを無料でダウンロードできる
@@ -88,3 +94,51 @@ sudo nmcli connection modify ens18 ipv4.dns "8.8.8.8,1.1.1.1"
 sudo nmcli connection up ens18
 ```
 固定IPが付与され、他PCからもpingできる
+
+
+
+
+## 物理マシン作成(OptiPlex5040)
+
+ISOを入手
+
+上記の、VMの時と同じもので良い
+
+https://github.com/pkthom/rhel10/edit/main/README.md#vm%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8Bproxmox
+
+
+USBに入れる
+
+使うUSB名を特定（今回は/dev/disk8）
+```
+abc@Mac-mini ~ % diskutil list
+...
+/dev/disk8 (synthesized):
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      APFS Container Scheme -                      +62.0 GB    disk8
+                                 Physical Store disk5s1
+   1:                APFS Volume photo                   59.5 GB    disk8s1
+```
+アンマウント
+```
+abc@Mac-mini ~ % diskutil unmountDisk /dev/disk8
+Unmount of all volumes on disk8 was successful
+```
+書き込み
+```
+abc@Mac-mini ~ % sudo dd if=/Users/abc/Downloads/rhel-10.0-x86_64-dvd.iso of=/dev/rdisk8 bs=4m status=progress
+  8464105472 bytes (8464 MB, 8072 MiB) transferred 612.286s, 14 MB/s
+2018+1 records in
+2018+1 records out
+8465612800 bytes transferred in 612.536971 secs (13820574 bytes/sec)
+abc@Mac-mini ~ %
+```
+取り出し
+```
+abc@Mac-mini ~ % sync
+abc@Mac-mini ~ % diskutil eject /dev/disk8
+Disk /dev/disk8 ejected
+```
+これはIgnoreでOK
+
+<img width="314" height="307" alt="image" src="https://github.com/user-attachments/assets/29555e72-259b-4a55-8578-b1470296609a" />
