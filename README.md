@@ -113,6 +113,11 @@ USBに入れる
 ```
 abc@Mac-mini ~ % diskutil list
 ...
+/dev/disk5 (external, physical):
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      GUID_partition_scheme                        *62.0 GB    disk5
+   1:                 Apple_APFS Container disk8         62.0 GB    disk5s1
+...
 /dev/disk8 (synthesized):
    #:                       TYPE NAME                    SIZE       IDENTIFIER
    0:      APFS Container Scheme -                      +62.0 GB    disk8
@@ -121,23 +126,24 @@ abc@Mac-mini ~ % diskutil list
 ```
 アンマウント
 ```
-abc@Mac-mini ~ % diskutil unmountDisk /dev/disk8
-Unmount of all volumes on disk8 was successful
+abc@Mac-mini ~ % diskutil unmountDisk /dev/disk5
+Unmount of all volumes on disk5 was successful
 ```
 書き込み
 ```
-abc@Mac-mini ~ % sudo dd if=/Users/abc/Downloads/rhel-10.0-x86_64-dvd.iso of=/dev/rdisk8 bs=4m status=progress
-  8464105472 bytes (8464 MB, 8072 MiB) transferred 612.286s, 14 MB/s
+abc@Mac-mini ~ % sudo dd if=/Users/abc/Downloads/rhel-10.0-x86_64-dvd.iso of=/dev/rdisk5 bs=4m status=progress
+Password:
+  8455716864 bytes (8456 MB, 8064 MiB) transferred 612.042s, 14 MB/s
 2018+1 records in
 2018+1 records out
-8465612800 bytes transferred in 612.536971 secs (13820574 bytes/sec)
+8465612800 bytes transferred in 612.615550 secs (13818802 bytes/sec)
 abc@Mac-mini ~ %
 ```
 取り出し
 ```
 abc@Mac-mini ~ % sync
-abc@Mac-mini ~ % diskutil eject /dev/disk8
-Disk /dev/disk8 ejected
+abc@Mac-mini ~ % diskutil eject /dev/disk5
+Disk /dev/disk5 ejected
 ```
 これはIgnoreでOK
 
