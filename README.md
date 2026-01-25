@@ -270,3 +270,76 @@ PING 8.8.8.8 (8.8.8.8) 56(84) バイトのデータ
 rtt min/avg/max/mdev = 7.078/7.337/7.720/0.276 ms
 ubuntu@localhost:~$ 
 ```
+
+最小パッケージを入れる（KVM + libvirt + virt-install）
+```
+ubuntu@localhost:~$ sudo dnf install -y qemu-kvm libvirt virt-install cockpit-machines
+```
+- qemu-kvm / libvirt: 仮想化のエンジン。
+- virt-install: コマンドラインからVMを作る際に必要。
+- cockpit-machines: これを入れることで、ブラウザからVMを作成・操作（コンソール表示）できるようになります。
+
+
+仮想化サービスと管理GUIを起動・有効化
+```
+sudo systemctl enable --now libvirtd
+sudo systemctl enable --now cockpit.socket
+```
+
+ブラウザからアクセス
+
+https://192.168.20.30:9090/
+
+<img width="1440" height="1069" alt="image" src="https://github.com/user-attachments/assets/8e90e445-c11f-4893-8c20-6d279b48566b" />
+
+<img width="1622" height="1024" alt="image" src="https://github.com/user-attachments/assets/97b1cf4d-4f51-4403-b488-99c2149a2bca" />
+
+
+特権アクセスを有効にする(これを行わないと、仮想マシンの作成などのシステム変更ができません。)
+
+画面右上の青いボタン [Turn on administrative access] をクリック
+
+ISOを送り込む
+```
+abc@Mac-mini Downloads % scp rhel-9.7-x86_64-dvd.iso root@192.168.20.30:/var/lib/libvirt/images/
+```
+送り込めた　（ちなみに、/var/lib/libvirt/images　は最初からあった）
+```
+root@localhost:/var/lib/libvirt/images# pwd
+/var/lib/libvirt/images
+root@localhost:/var/lib/libvirt/images# ls
+rhel-9.7-x86_64-dvd.iso
+```
+権限を調整しておく
+```
+root@localhost:/var/lib/libvirt/images# chown qemu:qemu rhel-9.7-x86_64-dvd.iso 
+root@localhost:/var/lib/libvirt/images# ls -lah
+合計 13G
+drwx--x--x. 2 root root  37  1月 25 20:16 .
+drwxr-xr-x. 9 root root 106  1月 25 19:59 ..
+-rw-r--r--. 1 qemu qemu 13G  1月 25 20:18 rhel-9.7-x86_64-dvd.iso
+root@localhost:/var/lib/libvirt/images# 
+```
+
+
+<img width="1613" height="1018" alt="image" src="https://github.com/user-attachments/assets/35ea73f4-a513-4c8c-91d1-00044a3aa172" />
+
+先ほど送り込んだISOが見えるので、それを選択し、「作成して編集する」をクリック（ブリッジになっているか見るため）　※あとは全部デフォルト
+
+<img width="1433" height="951" alt="image" src="https://github.com/user-attachments/assets/906eec24-4c0a-4219-85fc-56284225be80" />
+
+NIC　が　br0　になっているので、そのまま「インストール」をクリック 
+
+<img width="1631" height="1297" alt="image" src="https://github.com/user-attachments/assets/e0e1da09-8c94-49ef-aef3-1068a451a89b" />
+
+時間あるので、メディアをTestしてインストールをクリック
+
+<img width="1396" height="799" alt="image" src="https://github.com/user-attachments/assets/23d3986f-890b-4bd7-964a-2ba1a732ff7e" />
+
+RHEL9のインストール始まる
+
+<img width="1666" height="1283" alt="image" src="https://github.com/user-attachments/assets/4f75017c-d318-4bcb-b5ba-44a0a8d5dd79" />
+
+<img width="1393" height="1136" alt="image" src="https://github.com/user-attachments/assets/46aa65fb-9c16-425d-a1ac-0c056ada665d" />
+
+<img width="1668" height="1289" alt="image" src="https://github.com/user-attachments/assets/379f1d95-13f7-4a8e-96fa-66c107a0932a" />
