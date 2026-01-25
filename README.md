@@ -148,3 +148,125 @@ Disk /dev/disk5 ejected
 これはIgnoreでOK
 
 <img width="314" height="307" alt="image" src="https://github.com/user-attachments/assets/29555e72-259b-4a55-8578-b1470296609a" />
+
+
+固定IPを付与する
+
+
+手元の同VLAN内PCからSSHできる
+
+updateしようとするが、サブスクリプションの登録をしなければ、レポジトリが使えるようにならない
+```
+ubuntu@localhost:~$ sudo dnf -y update
+サブスクリプション管理リポジトリーを更新しています。
+コンシューマー識別子を読み込めません
+
+このシステムはエンタイトルメントサーバーに登録されていません。登録するには、"rhc" または "subscription-manager" を使用できます。
+
+エラー: "/etc/yum.repos.d", "/etc/yum/repos.d", "/etc/distro.repos.d" には有効化されたリポジトリーがありません。
+ubuntu@localhost:~$ 
+
+```
+
+以下で登録　※シングルクォーテーションじゃないとダメだった
+```
+sudo subscription-manager register --username 'ユーザー名' --password 'パスワード'
+```
+
+アップデート
+```
+ubuntu@localhost:~$ sudo dnf -y update
+```
+
+### ブリッジ構成を作成する
+
+
+<img width="739" height="770" alt="image" src="https://github.com/user-attachments/assets/276f5237-073e-4419-ade3-e8cd0646270b" />
+
+
+現状確認
+```
+ubuntu@localhost:~$ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s31f6: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether XX:XX:XX:XX:XX:XX brd ff:ff:ff:ff:ff:ff
+    altname enx14b31f03d114
+    inet 192.168.20.30/24 brd 192.168.20.255 scope global noprefixroute enp0s31f6
+       valid_lft forever preferred_lft forever
+    inet6 fe80::16b3:1fff:fe03:d114/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+ubuntu@localhost:~$ 
+```
+
+ブリッジ作成（仮想スイッチの親玉となる「br0」インターフェースを作成）
+```
+ubuntu@localhost:~$ sudo nmcli connection add type bridge autoconnect yes con-name br0 ifname br0
+```
+
+ブリッジへのIP設定（物理ポートから引き継ぐ固定IP情報をブリッジ（br0）に書き込む）
+```
+ubuntu@localhost:~$ sudo nmcli connection modify br0 ipv4.addresses 192.168.20.30/24 ipv4.gateway 192.168.20.1 ipv4.dns "8.8.8.8,1.1.1.1" ipv4.method manual
+Warning: nmcli (1.54.0) and NetworkManager (1.52.0) versions don't match. Restarting NetworkManager is advised.
+```
+
+物理ポートの紐付け（スレーブ化）（物理ポートを「br0」専用の差し込み口（スレーブ）として設定）
+```
+ubuntu@localhost:~$ sudo nmcli connection add type bridge-slave autoconnect yes con-name br0-slave ifname enp0s31f6 master br0
+Warning: nmcli (1.54.0) and NetworkManager (1.52.0) versions don't match. Restarting NetworkManager is advised.
+接続 'br0-slave' (05b38707-2786-4845-810e-20a5da2c4bf5) が正常に追加されました。
+
+```
+
+切り替え実行（物理ポート単体の設定を終了し、ブリッジを起動（ここでIPが移動するためSSHが一瞬切断される））
+```
+ubuntu@localhost:~$ sudo nmcli connection down enp0s31f6 && sudo nmcli connection up br0
+Warning: nmcli (1.54.0) and NetworkManager (1.52.0) versions don't match. Restarting NetworkManager is advised.
+Read from remote host 192.168.20.30: Operation timed out
+Connection to 192.168.20.30 closed.
+client_loop: send disconnect: Broken pipe
+abc@Mac-mini ~ % 
+```
+
+IPが物理ポートから消え、ブリッジ（br0）に正しく移動したことを確認
+```
+ubuntu@localhost:~$ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s31f6: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel master br0 state UP group default qlen 1000
+    link/ether XX:XX:XX:XX:XX:XX brd ff:ff:ff:ff:ff:ff
+    altname enx14b31f03d114
+3: br0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether XX:XX:XX:XX:XX:XX brd ff:ff:ff:ff:ff:ff
+    inet 192.168.20.30/24 brd 192.168.20.255 scope global noprefixroute br0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::5d:c35:6710:4184/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+
+# デフォルトゲートウェイが br0 を向いていることを確認
+ubuntu@localhost:~$ route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         192.168.20.1    0.0.0.0         UG    425    0        0 br0
+192.168.20.0    0.0.0.0         255.255.255.0   U     425    0        0 br0
+
+# ブリッジ経由で外部ネットに通信できることを確認（疎通OK！）
+ubuntu@localhost:~$ ping -c 3 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 56(84) バイトのデータ
+64 バイト応答 送信元 8.8.8.8: icmp_seq=1 ttl=116 時間=7.72ミリ秒
+64 バイト応答 送信元 8.8.8.8: icmp_seq=2 ttl=116 時間=7.08ミリ秒
+64 バイト応答 送信元 8.8.8.8: icmp_seq=3 ttl=116 時間=7.22ミリ秒
+
+--- 8.8.8.8 ping 統計 ---
+送信パケット数 3, 受信パケット数 3, 0% packet loss, time 2004ms
+rtt min/avg/max/mdev = 7.078/7.337/7.720/0.276 ms
+ubuntu@localhost:~$ 
+```
