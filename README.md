@@ -505,3 +505,5 @@ No packages marked for update
 ```
 [ubuntu@rhel7 ~]$ sudo yum install -y virt-v2v
 ```
+
+<img width="752" height="354" alt="image" src="https://github.com/user-attachments/assets/4133cccb-ee40-456b-b683-3580a7520b80" />
