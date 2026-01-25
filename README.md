@@ -461,3 +461,47 @@ ubuntuユーザーは、rootになれるようにしておく
 
 <img width="1653" height="1242" alt="image" src="https://github.com/user-attachments/assets/66516867-2de2-4a13-b499-0e32e43b2aa6" />
 
+<img width="1651" height="1251" alt="image" src="https://github.com/user-attachments/assets/b5799b5d-15a8-4113-b99f-d31b566d0839" />
+
+<img width="1642" height="1236" alt="image" src="https://github.com/user-attachments/assets/4c2b341e-e8cd-4c2e-a5f4-f3bdca1f5ea2" />
+
+```
+[ubuntu@rhel7 ~]$ sudo yum update
+[sudo] password for ubuntu: 
+Failed to set locale, defaulting to C
+Loaded plugins: product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+There are no enabled repos.
+ Run "yum repolist all" to see the repos you have.
+ To enable Red Hat Subscription Management repositories:
+     subscription-manager repos --enable <repo>
+ To enable custom repositories:
+     yum-config-manager --enable <repo>
+[ubuntu@rhel7 ~]$ 
+```
+
+```
+[ubuntu@rhel7 ~]$ sudo subscription-manager register --username 'username' --password 'password'
+You are attempting to use a locale that is not installed.
+Registering to: subscription.rhsm.redhat.com:443/subscription
+The system has been registered with ID: 1713ffa0-0678-4624-ab0e-db147eacbd0b
+The registered system name is: rhel7
+[ubuntu@rhel7 ~]$ 
+
+```
+
+```
+[ubuntu@rhel7 ~]$ sudo subscription-manager repos --enable="rhel-7-server-rpms"
+You are attempting to use a locale that is not installed.
+Repository 'rhel-7-server-rpms' is enabled for this system.
+[ubuntu@rhel7 ~]$ sudo yum update -y
+Failed to set locale, defaulting to C
+Loaded plugins: product-id, search-disabled-repos, subscription-manager
+No packages marked for update
+[ubuntu@rhel7 ~]$ 
+```
+```
+[ubuntu@rhel7 ~]$ sudo yum install -y virt-v2v
+```
