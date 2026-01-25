@@ -152,6 +152,9 @@ Disk /dev/disk5 ejected
 
 固定IPを付与する
 
+<img width="4032" height="608" alt="image" src="https://github.com/user-attachments/assets/d63b08a8-a9e4-45c0-89ab-65354b9d4bd9" />
+
+
 
 手元の同VLAN内PCからSSHできる
 
