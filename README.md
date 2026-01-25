@@ -154,6 +154,7 @@ Disk /dev/disk5 ejected
 
 <img width="4032" height="608" alt="image" src="https://github.com/user-attachments/assets/d63b08a8-a9e4-45c0-89ab-65354b9d4bd9" />
 
+<img width="1789" height="911" alt="image" src="https://github.com/user-attachments/assets/39e364db-d8d2-423a-9e5d-745796f335a6" />
 
 
 手元の同VLAN内PCからSSHできる
@@ -174,6 +175,13 @@ ubuntu@localhost:~$
 以下で登録　※シングルクォーテーションじゃないとダメだった
 ```
 sudo subscription-manager register --username 'ユーザー名' --password 'パスワード'
+```
+```
+ubuntu@localhost:~$ sudo subscription-manager register --username 'ユーザー名' --password 'パスワード'
+登録中: subscription.rhsm.redhat.com:443/subscription
+このシステムは、次の ID で登録されました: abcde...
+登録したシステム名: localhost.localdomain
+ubuntu@localhost:~$ 
 ```
 
 アップデート
@@ -324,6 +332,7 @@ drwxr-xr-x. 9 root root 106  1月 25 19:59 ..
 root@localhost:/var/lib/libvirt/images# 
 ```
 
+### RHEL9 VMを作る
 
 <img width="1613" height="1018" alt="image" src="https://github.com/user-attachments/assets/35ea73f4-a513-4c8c-91d1-00044a3aa172" />
 
@@ -346,3 +355,46 @@ RHEL9のインストール始まる
 <img width="1393" height="1136" alt="image" src="https://github.com/user-attachments/assets/46aa65fb-9c16-425d-a1ac-0c056ada665d" />
 
 <img width="1668" height="1289" alt="image" src="https://github.com/user-attachments/assets/379f1d95-13f7-4a8e-96fa-66c107a0932a" />
+
+
+インストール完了
+
+<img width="1659" height="1286" alt="image" src="https://github.com/user-attachments/assets/fdd12ce3-3609-49b3-ab23-d06059741f54" />
+
+<img width="1657" height="1273" alt="image" src="https://github.com/user-attachments/assets/bc7999f2-2627-4a8e-a0ad-526f62679336" />
+
+<img width="1659" height="1288" alt="image" src="https://github.com/user-attachments/assets/de7e5718-a276-4b26-9350-193e4a3a21aa" />
+
+ブリッジが効いていて、IPが振られている
+
+<img width="1649" height="1243" alt="image" src="https://github.com/user-attachments/assets/608bb3dd-9c56-4540-b446-3439198b0a81" />
+
+SSHできる
+
+毎回のように、アカウント登録し、レポジトリを有効にする
+```
+[root@localhost ~]# dnf -y update
+サブスクリプション管理リポジトリーを更新しています。
+コンシューマー識別子を読み込めません
+
+このシステムはエンタイトルメントサーバーに登録されていません。登録するには、"rhc" または "subscription-manager" を使用できます。
+
+エラー: "/etc/yum.repos.d", "/etc/yum/repos.d", "/etc/distro.repos.d" には有効化されたリポジトリーがありません。
+[root@localhost ~]# subscription-manager register --username 'ユーザー名' --password 'パスワード'
+登録中: subscription.rhsm.redhat.com:443/subscription
+このシステムは、次の ID で登録されました: abcde...
+登録したシステム名: localhost.localdomain
+[root@localhost ~]# 
+```
+変換サーバーになるために必要なツールをインストールする
+```
+[root@localhost ~]# sudo dnf install -y virt-v2v libguestfs-tools
+```
+
+### virt-p2v ISO を公式からダウンロードする
+
+https://access.redhat.com/downloads/content/69/ver=/rhel---7/7.9/x86_64/product-software
+
+<img width="1595" height="1175" alt="image" src="https://github.com/user-attachments/assets/73264322-83ff-48dc-bc5c-7c92601d1e1b" />
+
+<img width="733" height="389" alt="image" src="https://github.com/user-attachments/assets/dd3819b2-1880-4ad2-b385-a40af189b830" />
