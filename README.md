@@ -525,3 +525,104 @@ Jan 25 23:10:51 rhel7 systemd[1]: Started Virtualization daemon.
 ```
 
 <img width="752" height="354" alt="image" src="https://github.com/user-attachments/assets/4133cccb-ee40-456b-b683-3580a7520b80" />
+
+
+---
+
+<img width="1378" height="1039" alt="image" src="https://github.com/user-attachments/assets/724568f8-3d9e-455d-b992-f8697b4a7b6e" />
+
+<img width="1427" height="1093" alt="image" src="https://github.com/user-attachments/assets/82fff03d-741c-4c76-9416-9523ba4ccc78" />
+
+
+<img width="1505" height="1120" alt="image" src="https://github.com/user-attachments/assets/6805a905-fa2a-45cd-b8f4-5b9f19f8c51b" />
+
+
+<img width="1425" height="1095" alt="image" src="https://github.com/user-attachments/assets/c6c4ac74-eac2-44fa-a458-a5243252249d" />
+
+<img width="740" height="662" alt="image" src="https://github.com/user-attachments/assets/8a91fd50-4963-4a5e-b7c2-e3f82f0a21a5" />
+
+<img width="742" height="751" alt="image" src="https://github.com/user-attachments/assets/4c9b8843-1c5e-4d16-8f98-75003e751990" />
+
+<img width="1686" height="977" alt="image" src="https://github.com/user-attachments/assets/80c76b73-02cc-48a8-a5bd-8e438b05d8f4" />
+
+```
+
+root@localhost:/var/lib/libvirt/images# qemu-img resize rhel7.qcow2 150G
+Image resized.
+root@localhost:/var/lib/libvirt/images# 
+```
+
+
+```
+[ubuntu@rhel7 ~]$ sudo yum install -y cloud-utils-growpart
+
+```
+
+vda が 150G になっているのが確認できました！ただ、中身のパーティション（vda2）と LVM（rhel-root）がまだ 8G〜9G のままなので、ここを広げる必要があります。
+```
+[ubuntu@rhel7 ~]$ lsblk -l
+NAME      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sr0        11:0    1  4.2G  0 rom  
+vda       252:0    0  150G  0 disk 
+vda1      252:1    0    1G  0 part /boot
+vda2      252:2    0    9G  0 part 
+rhel-root 253:0    0    8G  0 lvm  /
+rhel-swap 253:1    0    1G  0 lvm  [SWAP]
+[ubuntu@rhel7 ~]$
+[ubuntu@rhel7 ~]$ df -h
+Filesystem             Size  Used Avail Use% Mounted on
+devtmpfs               908M     0  908M   0% /dev
+tmpfs                  919M     0  919M   0% /dev/shm
+tmpfs                  919M  8.7M  911M   1% /run
+tmpfs                  919M     0  919M   0% /sys/fs/cgroup
+/dev/mapper/rhel-root  8.0G  2.8G  5.3G  35% /
+/dev/vda1             1014M  195M  820M  20% /boot
+tmpfs                  184M     0  184M   0% /run/user/1000
+[ubuntu@rhel7 ~]$ 
+```
+
+パーティションを広げる
+まずは、物理的な枠組みである vda2 パーティションを最後まで広げます。
+```
+# vda の 2番目のパーティション（vda2）を最大まで拡張
+[ubuntu@rhel7 ~]$ sudo growpart /dev/vda 2
+CHANGED: partition=2 start=2099200 old: size=18872320 end=20971520 new: size=312473567 end=314572767
+```
+LVM の物理ボリュームを広げる
+OSに「枠が広がったよ」と教えます。
+```
+[ubuntu@rhel7 ~]$ sudo pvresize /dev/vda2
+  Physical volume "/dev/vda2" changed
+  1 physical volume(s) resized or updated / 0 physical volume(s) not resized
+```
+論理ボリュームとファイルシステムを同時に広げる
+最後に、/ がマウントされている rhel-root を、増えた分だけ（100%）広げます。
+```
+# -r オプションでファイルシステム（XFS）の拡張も同時に行います
+[ubuntu@rhel7 ~]$ sudo lvextend -l +100%FREE -r /dev/mapper/rhel-root
+  Size of logical volume rhel/root changed from <8.00 GiB (2047 extents) to <148.00 GiB (37887 extents).
+  Logical volume rhel/root successfully resized.
+meta-data=/dev/mapper/rhel-root  isize=512    agcount=4, agsize=524032 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=0 spinodes=0
+data     =                       bsize=4096   blocks=2096128, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+log      =internal               bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+data blocks changed from 2096128 to 38796288
+```
+コマンドが終わったら、もう一度確認
+```
+[ubuntu@rhel7 ~]$ df -h
+Filesystem             Size  Used Avail Use% Mounted on
+devtmpfs               908M     0  908M   0% /dev
+tmpfs                  919M     0  919M   0% /dev/shm
+tmpfs                  919M  8.7M  911M   1% /run
+tmpfs                  919M     0  919M   0% /sys/fs/cgroup
+/dev/mapper/rhel-root  148G  2.8G  146G   2% /
+/dev/vda1             1014M  195M  820M  20% /boot
+tmpfs                  184M     0  184M   0% /run/user/1000
+[ubuntu@rhel7 ~]$ 
+```
