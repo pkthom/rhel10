@@ -398,3 +398,17 @@ https://access.redhat.com/downloads/content/69/ver=/rhel---7/7.9/x86_64/product-
 <img width="1595" height="1175" alt="image" src="https://github.com/user-attachments/assets/73264322-83ff-48dc-bc5c-7c92601d1e1b" />
 
 <img width="733" height="389" alt="image" src="https://github.com/user-attachments/assets/dd3819b2-1880-4ad2-b385-a40af189b830" />
+
+USBに焼く
+```
+abc@Mac-mini Downloads % sudo dd if=virt-p2v-1.40.2-1.el7.iso of=/dev/rdisk4 bs=4m status=progress
+Password:
+  301989888 bytes (302 MB, 288 MiB) transferred 4.044s, 75 MB/s
+88+1 records in
+88+1 records out
+372244480 bytes transferred in 4.970150 secs (74896025 bytes/sec)
+abc@Mac-mini Downloads % sync
+abc@Mac-mini Downloads % diskutil eject /dev/disk4
+Disk /dev/disk4 ejected
+abc@Mac-mini Downloads % 
+```
