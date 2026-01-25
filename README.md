@@ -505,5 +505,23 @@ No packages marked for update
 ```
 [ubuntu@rhel7 ~]$ sudo yum install -y virt-v2v
 ```
+```
+[ubuntu@rhel7 ~]$ sudo systemctl start libvirtd
+[sudo] password for ubuntu: 
+[ubuntu@rhel7 ~]$ sudo systemctl enable libvirtd
+[ubuntu@rhel7 ~]$ sudo systemctl status libvirtd
+● libvirtd.service - Virtualization daemon
+   Loaded: loaded (/usr/lib/systemd/system/libvirtd.service; enabled; vendor preset: enabled)
+   Active: active (running) since Sun 2026-01-25 23:10:51 JST; 20s ago
+     Docs: man:libvirtd(8)
+           https://libvirt.org
+ Main PID: 25885 (libvirtd)
+   CGroup: /system.slice/libvirtd.service
+           └─25885 /usr/sbin/libvirtd
+
+Jan 25 23:10:51 rhel7 systemd[1]: Starting Virtualization daemon...
+Jan 25 23:10:51 rhel7 systemd[1]: Started Virtualization daemon.
+[ubuntu@rhel7 ~]$ 
+```
 
 <img width="752" height="354" alt="image" src="https://github.com/user-attachments/assets/4133cccb-ee40-456b-b683-3580a7520b80" />
