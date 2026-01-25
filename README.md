@@ -391,6 +391,8 @@ SSHできる
 [root@localhost ~]# sudo dnf install -y virt-v2v libguestfs-tools
 ```
 
+変換サーバー準備完了
+
 ### virt-p2v ISO を公式からダウンロードする
 
 https://access.redhat.com/downloads/content/69/ver=/rhel---7/7.9/x86_64/product-software
@@ -412,3 +414,50 @@ abc@Mac-mini Downloads % diskutil eject /dev/disk4
 Disk /dev/disk4 ejected
 abc@Mac-mini Downloads % 
 ```
+
+<img width="1477" height="794" alt="image" src="https://github.com/user-attachments/assets/a9265425-190a-4ae2-afdd-ee26521aa28e" />
+
+<img width="753" height="516" alt="image" src="https://github.com/user-attachments/assets/b8adcffd-90e8-48c6-a69f-a6007b3f2cd9" />
+
+
+### RHEL7 VMを作る
+
+```
+abc@Mac-mini Downloads % scp rhel-server-7.9-x86_64-dvd.iso root@192.168.20.30:/var/lib/libvirt/images/
+```
+```
+root@localhost:/var/lib/libvirt/images# chown qemu:qemu rhel-server-7.9-x86_64-dvd.iso 
+root@localhost:/var/lib/libvirt/images# ls -lah
+合計 26G
+drwx--x--x. 2 root root   94  1月 25 22:27 .
+drwxr-xr-x. 9 root root  106  1月 25 19:59 ..
+-rw-r--r--. 1 qemu qemu  13G  1月 25 20:18 rhel-9.7-x86_64-dvd.iso
+-rw-r--r--. 1 qemu qemu 4.3G  1月 25 22:27 rhel-server-7.9-x86_64-dvd.iso
+-rw-------. 1 qemu qemu  11G  1月 25 22:29 rhel9.qcow2
+root@localhost:/var/lib/libvirt/images# 
+```
+
+<img width="1635" height="1057" alt="image" src="https://github.com/user-attachments/assets/4b346047-bde0-4ad5-bb9b-b5e1246c5c27" />
+
+<img width="1648" height="1296" alt="image" src="https://github.com/user-attachments/assets/537ab270-e338-466e-b4a7-0f7d48ab7308" />
+
+<img width="1671" height="1270" alt="image" src="https://github.com/user-attachments/assets/7853856d-239a-47da-839e-025dda833485" />
+
+<img width="1643" height="1261" alt="image" src="https://github.com/user-attachments/assets/3df9bcf6-0fa1-492d-8af9-7b45dcf3f0b6" />
+
+Ethernet を「オン」にする　（オフになっていた）
+
+<img width="1644" height="1245" alt="image" src="https://github.com/user-attachments/assets/363dd2d8-7287-408a-8f3a-f6d1d8ab9962" />
+
+インストール開始
+
+<img width="1643" height="1251" alt="image" src="https://github.com/user-attachments/assets/e274770d-29c4-4fa6-af79-4e6054d1fe3a" />
+
+この２つは設定しておく
+
+<img width="1646" height="1243" alt="image" src="https://github.com/user-attachments/assets/8ddca4f8-7995-4787-913a-6c5044f9c004" />
+
+ubuntuユーザーは、rootになれるようにしておく
+
+<img width="1653" height="1242" alt="image" src="https://github.com/user-attachments/assets/66516867-2de2-4a13-b499-0e32e43b2aa6" />
+
