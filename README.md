@@ -465,6 +465,7 @@ ubuntuユーザーは、rootになれるようにしておく
 
 <img width="1642" height="1236" alt="image" src="https://github.com/user-attachments/assets/4c2b341e-e8cd-4c2e-a5f4-f3bdca1f5ea2" />
 
+いつものように、アカウント登録して、レポジトリを使えるようにする
 ```
 [ubuntu@rhel7 ~]$ sudo yum update
 [sudo] password for ubuntu: 
@@ -505,6 +506,7 @@ No packages marked for update
 ```
 [ubuntu@rhel7 ~]$ sudo yum install -y virt-v2v
 ```
+libvirtdを起動し有効化したら、変換サーバーとしての準備OK
 ```
 [ubuntu@rhel7 ~]$ sudo systemctl start libvirtd
 [sudo] password for ubuntu: 
@@ -529,7 +531,37 @@ Jan 25 23:10:51 rhel7 systemd[1]: Started Virtualization daemon.
 
 ---
 
+変換開始
+
+virt-p2v USBを物理に指して、起動→F12
+
+USBから起動を選ぶ
+
+<img width="1539" height="1108" alt="image" src="https://github.com/user-attachments/assets/24f9a4eb-c054-49c6-97c6-1dcffc841bd6" />
+
+Enterを押す
+
+<img width="1528" height="956" alt="image" src="https://github.com/user-attachments/assets/a5bd5b0e-8193-461c-9a79-23ba996a3afe" />
+
+virt-p2v GUI が起動するので、変換サーバー（今回はRHEL7）の情報を入力し、接続テストを行う
+
+<img width="1412" height="719" alt="image" src="https://github.com/user-attachments/assets/1111b46d-5ce4-4a29-aa93-957709f5dcb2" />
+
+↑ 接続テスト成功
+
+これがデフォルト画面
+
+<img width="1511" height="1041" alt="image" src="https://github.com/user-attachments/assets/a8366104-e75c-47ad-821f-af273e0dc825" />
+
+以下のように変えて、「Start Conversion」をクリック
+
+<img width="1502" height="1051" alt="image" src="https://github.com/user-attachments/assets/fcc6ac2e-4d05-4dd8-bf81-aa6cd31738f7" />
+
+失敗
+
 <img width="1378" height="1039" alt="image" src="https://github.com/user-attachments/assets/724568f8-3d9e-455d-b992-f8697b4a7b6e" />
+
+以下、ログ全文
 
 <img width="1427" height="1093" alt="image" src="https://github.com/user-attachments/assets/82fff03d-741c-4c76-9416-9523ba4ccc78" />
 
@@ -543,8 +575,11 @@ Jan 25 23:10:51 rhel7 systemd[1]: Started Virtualization daemon.
 
 <img width="742" height="751" alt="image" src="https://github.com/user-attachments/assets/4c9b8843-1c5e-4d16-8f98-75003e751990" />
 
+GUI上で、１０GBであることがわかるが、GUIからは変更できなかった
+
 <img width="1686" height="977" alt="image" src="https://github.com/user-attachments/assets/80c76b73-02cc-48a8-a5bd-8e438b05d8f4" />
 
+以下から　拡大手順
 ```
 
 root@localhost:/var/lib/libvirt/images# qemu-img resize rhel7.qcow2 150G
@@ -626,3 +661,18 @@ tmpfs                  919M     0  919M   0% /sys/fs/cgroup
 tmpfs                  184M     0  184M   0% /run/user/1000
 [ubuntu@rhel7 ~]$ 
 ```
+
+<img width="1449" height="740" alt="image" src="https://github.com/user-attachments/assets/1fde0429-c1c8-43cd-acaa-98201c4b873a" />
+
+<img width="1466" height="999" alt="image" src="https://github.com/user-attachments/assets/c1f8be96-a2d9-4385-9b28-8423514e09ac" />
+
+
+成功
+
+<img width="1447" height="1088" alt="image" src="https://github.com/user-attachments/assets/95344e6c-69dc-4a5f-8c39-e0a5e4345e2a" />
+
+※ログ全文
+
+<img width="1446" height="1077" alt="image" src="https://github.com/user-attachments/assets/d6854b6b-c7b8-4d34-942d-8518773a8498" />
+
+<img width="1390" height="1065" alt="image" src="https://github.com/user-attachments/assets/2a7ae659-d580-4896-a651-3371ffa86241" />
