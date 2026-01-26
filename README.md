@@ -721,6 +721,34 @@ RHEL10から、RHEL7へ、centos5-p2v-sda をコピー
 ```
 root@localhost:/var/lib/libvirt/images# scp root@192.168.20.54:/var/lib/libvirt/images/centos5-p2v-sda /var/lib/libvirt/images/
 ```
+ファイルの所有者を libvirt (qemu) に変更する
+```
+root@localhost:/var/lib/libvirt/images# ls -lah
+合計 63G
+drwx--x--x. 2 root root  136  1月 27 06:37 .
+drwxr-xr-x. 9 root root  106  1月 25 19:59 ..
+-rw-r--r--. 1 root root  15G  1月 27 06:40 centos5-p2v-sda
+-rw-r--r--. 1 qemu qemu  13G  1月 25 20:18 rhel-9.7-x86_64-dvd.iso
+-rw-r--r--. 1 qemu qemu 4.3G  1月 25 22:27 rhel-server-7.9-x86_64-dvd.iso
+-rw-------. 1 qemu qemu  24G  1月 27 07:10 rhel7.qcow2
+-rw-------. 1 root root  11G  1月 27 06:44 rhel9.qcow2
+root@localhost:/var/lib/libvirt/images# chown qemu:qemu centos5-p2v-sda 
+root@localhost:/var/lib/libvirt/images# ls -lah
+合計 63G
+drwx--x--x. 2 root root  136  1月 27 06:37 .
+drwxr-xr-x. 9 root root  106  1月 25 19:59 ..
+-rw-r--r--. 1 qemu qemu  15G  1月 27 06:40 centos5-p2v-sda
+-rw-r--r--. 1 qemu qemu  13G  1月 25 20:18 rhel-9.7-x86_64-dvd.iso
+-rw-r--r--. 1 qemu qemu 4.3G  1月 25 22:27 rhel-server-7.9-x86_64-dvd.iso
+-rw-------. 1 qemu qemu  24G  1月 27 07:10 rhel7.qcow2
+-rw-------. 1 root root  11G  1月 27 06:44 rhel9.qcow2
+root@localhost:/var/lib/libvirt/images# 
+```
+
+※ 権限変更しないと、エラー　Permission denied　になった　↓
+
+<img width="650" height="291" alt="image" src="https://github.com/user-attachments/assets/af332057-cdae-40ab-aa01-79e6d5a3470f" />
+
 
 <img width="774" height="524" alt="image" src="https://github.com/user-attachments/assets/11a57192-ab45-47da-be00-b53f5d11de95" />
 
@@ -732,3 +760,19 @@ RHEL10のCockpit画面で、仮想マシンの作成　をクリック
 以下の設定で、「作成して編集する」をクリック
 
 <img width="1722" height="931" alt="image" src="https://github.com/user-attachments/assets/e8b899de-aad7-4400-9e46-105331787374" />
+
+<img width="740" height="214" alt="image" src="https://github.com/user-attachments/assets/09c7b628-7ed2-47af-b36c-2804fa725905" />
+
+
+<img width="1001" height="938" alt="image" src="https://github.com/user-attachments/assets/83a53ac2-78ea-4649-92de-d1fad415244a" />
+
+<img width="1713" height="1059" alt="image" src="https://github.com/user-attachments/assets/633f2800-c51a-4a21-a7c8-24706010a189" />
+
+↓ ディスクを追加できた
+
+<img width="1706" height="934" alt="image" src="https://github.com/user-attachments/assets/095e60e5-9b53-4683-a701-3d3d13369196" />
+
+「インストール」
+
+<img width="1696" height="978" alt="image" src="https://github.com/user-attachments/assets/ba17e4fa-30e3-4a9e-a25b-401ddba9c8c6" />
+
