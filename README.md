@@ -526,7 +526,11 @@ Jan 25 23:10:51 rhel7 systemd[1]: Started Virtualization daemon.
 [ubuntu@rhel7 ~]$ 
 ```
 
-<img width="752" height="354" alt="image" src="https://github.com/user-attachments/assets/4133cccb-ee40-456b-b683-3580a7520b80" />
+※ちなみに、libvirtdを起動できていなくて、一度以下のエラー終了した
+
+<img width="1024" height="789" alt="image" src="https://github.com/user-attachments/assets/254007f1-9950-4df1-9020-2c4e8e8f64b6" />
+
+<img width="714" height="190" alt="image" src="https://github.com/user-attachments/assets/0d34cc3d-a1c6-4f0a-9165-248770beee35" />
 
 
 ---
@@ -556,6 +560,18 @@ virt-p2v GUI が起動するので、変換サーバー（今回はRHEL7）の�
 以下のように変えて、「Start Conversion」をクリック
 
 <img width="1502" height="1051" alt="image" src="https://github.com/user-attachments/assets/fcc6ac2e-4d05-4dd8-bf81-aa6cd31738f7" />
+
+各パラメーターについて
+
+<img width="776" height="940" alt="image" src="https://github.com/user-attachments/assets/2a52b052-564f-418f-adfe-376b7311ac99" />
+
+
+<img width="752" height="354" alt="image" src="https://github.com/user-attachments/assets/4133cccb-ee40-456b-b683-3580a7520b80" />
+
+空き容量についての忠告　（のちにこれで失敗する）
+
+<img width="739" height="414" alt="image" src="https://github.com/user-attachments/assets/58fca2b2-cdd3-4c22-85d6-11179fb058ce" />
+
 
 失敗
 
@@ -662,12 +678,14 @@ tmpfs                  184M     0  184M   0% /run/user/1000
 [ubuntu@rhel7 ~]$ 
 ```
 
+先ほどと全く一緒の手順・パラメーターで、変換再チャレンジ
+
 <img width="1449" height="740" alt="image" src="https://github.com/user-attachments/assets/1fde0429-c1c8-43cd-acaa-98201c4b873a" />
 
 <img width="1466" height="999" alt="image" src="https://github.com/user-attachments/assets/c1f8be96-a2d9-4385-9b28-8423514e09ac" />
 
 
-成功
+☑️今度は成功
 
 <img width="1447" height="1088" alt="image" src="https://github.com/user-attachments/assets/95344e6c-69dc-4a5f-8c39-e0a5e4345e2a" />
 
@@ -676,3 +694,39 @@ tmpfs                  184M     0  184M   0% /run/user/1000
 <img width="1446" height="1077" alt="image" src="https://github.com/user-attachments/assets/d6854b6b-c7b8-4d34-942d-8518773a8498" />
 
 <img width="1390" height="1065" alt="image" src="https://github.com/user-attachments/assets/2a7ae659-d580-4896-a651-3371ffa86241" />
+
+<img width="746" height="188" alt="image" src="https://github.com/user-attachments/assets/91e365c7-ff21-4ea4-992d-e1db232a9976" />
+
+
+確認
+
+<img width="745" height="364" alt="image" src="https://github.com/user-attachments/assets/218519b9-c57e-4510-b21b-fb6051d210d3" />
+
+確かにある
+```
+[root@rhel7 images]# pwd
+/var/lib/libvirt/images
+[root@rhel7 images]# ls -lah
+合計 15G
+drwx--x--x. 2 root root   52  1月 27 00:32 .
+drwxr-xr-x. 9 root root  106  1月 25 23:01 ..
+-rw-r--r--. 1 root root  15G  1月 27 00:32 centos5-p2v-sda
+-rw-r--r--. 1 root root 1.4K  1月 27 00:32 centos5-p2v.xml
+[root@rhel7 images]# 
+```
+
+RHEL10から、RHEL7へ、centos5-p2v-sda をコピー
+```
+root@localhost:/var/lib/libvirt/images# scp root@192.168.20.54:/var/lib/libvirt/images/centos5-p2v-sda /var/lib/libvirt/images/
+```
+
+<img width="774" height="524" alt="image" src="https://github.com/user-attachments/assets/11a57192-ab45-47da-be00-b53f5d11de95" />
+
+
+RHEL10のCockpit画面で、仮想マシンの作成　をクリック
+
+<img width="1722" height="981" alt="image" src="https://github.com/user-attachments/assets/73e16693-9c9e-416e-bef3-f7603e99d6db" />
+
+以下の設定で、「作成して編集する」をクリック
+
+<img width="1722" height="931" alt="image" src="https://github.com/user-attachments/assets/e8b899de-aad7-4400-9e46-105331787374" />
