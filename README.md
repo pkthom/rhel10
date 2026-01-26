@@ -695,6 +695,8 @@ tmpfs                  184M     0  184M   0% /run/user/1000
 
 <img width="1390" height="1065" alt="image" src="https://github.com/user-attachments/assets/2a7ae659-d580-4896-a651-3371ffa86241" />
 
+このマシンはもう使わないので、「Shutdown...」ボタンより、シャットダウンする　LANケーブルも抜いていい
+
 <img width="746" height="188" alt="image" src="https://github.com/user-attachments/assets/91e365c7-ff21-4ea4-992d-e1db232a9976" />
 
 
