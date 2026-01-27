@@ -792,3 +792,7 @@ service network restart すると、元のIPが戻り、通信可能になる
 
 <img width="1454" height="933" alt="Screenshot 2026-01-27 at 8 43 14" src="https://github.com/user-attachments/assets/2fa4e066-7d54-457b-8f4d-d83573b85b96" />
 
+
+RHEL4の場合
+
+<img width="2035" height="1285" alt="image" src="https://github.com/user-attachments/assets/e13e4d65-ef25-4bc4-b36c-2a7b443be5d8" />
