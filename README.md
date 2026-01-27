@@ -753,26 +753,42 @@ root@localhost:/var/lib/libvirt/images#
 <img width="774" height="524" alt="image" src="https://github.com/user-attachments/assets/11a57192-ab45-47da-be00-b53f5d11de95" />
 
 
-RHEL10のCockpit画面で、仮想マシンの作成　をクリック
+RHEL10のCockpit画面で、「VMのインポート」　をクリック
 
-<img width="1722" height="981" alt="image" src="https://github.com/user-attachments/assets/73e16693-9c9e-416e-bef3-f7603e99d6db" />
+ディスクイメージで、scp してきた　centos5-p2v-sda　を選択
 
-以下の設定で、「作成して編集する」をクリック
+<img width="1709" height="893" alt="image" src="https://github.com/user-attachments/assets/18cde2f5-e6a1-4bbd-a857-b20105144e36" />
 
-<img width="1722" height="931" alt="image" src="https://github.com/user-attachments/assets/e8b899de-aad7-4400-9e46-105331787374" />
+オペレーティングシステム　で、OSを選ぶ　手動　今回はCentOS5.11
+
+メモリも、良い値を選ぶ
+
+インポートして編集する　をクリック
+
+以下をチェック
 
 <img width="740" height="214" alt="image" src="https://github.com/user-attachments/assets/09c7b628-7ed2-47af-b36c-2804fa725905" />
 
+問題なし　黄色枠内
 
-<img width="1001" height="938" alt="image" src="https://github.com/user-attachments/assets/83a53ac2-78ea-4649-92de-d1fad415244a" />
+<img width="1691" height="1118" alt="image" src="https://github.com/user-attachments/assets/a342b110-f703-49b8-8217-5913b9706c90" />
 
-<img width="1713" height="1059" alt="image" src="https://github.com/user-attachments/assets/633f2800-c51a-4a21-a7c8-24706010a189" />
 
-↓ ディスクを追加できた
+実行　をクリックすると、起動する
 
-<img width="1706" height="934" alt="image" src="https://github.com/user-attachments/assets/095e60e5-9b53-4683-a701-3d3d13369196" />
+<img width="1715" height="1137" alt="image" src="https://github.com/user-attachments/assets/ea4e3eb2-1cc5-433f-8d9a-4a30eeb83d17" />
 
-「インストール」
+※ 上記はシャットダウンボタン
 
-<img width="1696" height="978" alt="image" src="https://github.com/user-attachments/assets/ba17e4fa-30e3-4a9e-a25b-401ddba9c8c6" />
+ログインする　NICにIPついてない
+
+<img width="1450" height="965" alt="Screenshot 2026-01-27 at 8 38 50" src="https://github.com/user-attachments/assets/d9a0cd3b-562b-4f7c-b927-63483bdad9ea" />
+
+/etc/sysconfig/network-scripts/ifcfg-eth0 が以下のようになっているので、HWADDR の行を消して、、、
+
+<img width="1367" height="947" alt="Screenshot 2026-01-27 at 8 42 23" src="https://github.com/user-attachments/assets/21db328c-3975-4a15-9de5-4db48314e344" />
+
+service network restart すると、元のIPが戻り、通信可能になる
+
+<img width="1454" height="933" alt="Screenshot 2026-01-27 at 8 43 14" src="https://github.com/user-attachments/assets/2fa4e066-7d54-457b-8f4d-d83573b85b96" />
 
