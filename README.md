@@ -806,31 +806,43 @@ root@192.168.20.30's password:
 rhel-server-6.10-x86_64-dvd.iso                                                                100% 3715MB 110.6MB/s   00:33    
 ```
 
-とりあえず１０GBスタート　１５０にしたいが、余裕がない　
+とりあえず１０GBスタート　１５０にしたいが、余裕がない　ここで１５０にすると、インストール時にエラーが出た　実は、インストール終わってから上記のようにエラーなしで拡張できる
 
-<img width="1750" height="1132" alt="image" src="https://github.com/user-attachments/assets/2db2a313-b697-4a7e-af2b-047a32f8545c" />
+<img width="1756" height="1247" alt="image" src="https://github.com/user-attachments/assets/3573ea94-492b-4dd5-bee6-014e510dae53" />
 
 インストール
 
-<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/85a34922-48cb-4fbf-b254-74f713d0c894" />
+<img width="1756" height="1247" alt="image" src="https://github.com/user-attachments/assets/6bac48c8-dde7-448d-8f07-60b51d1f7741" />
+
 
 <img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/051c071e-add0-41be-8850-6ba3669b3f7f" />
 
 <img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/358d623b-e590-47c9-803e-f0d11aea42ff" />
 
-<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/479837d0-bbed-417e-8b91-cd0df7c479a8" />
+<img width="1926" height="1403" alt="image" src="https://github.com/user-attachments/assets/fe108f3e-1d43-44bd-8be0-5d20e5126841" />
 
-<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/13ad342e-9c53-41c2-92be-95e74efa7fa0" />
+<img width="1926" height="1403" alt="image" src="https://github.com/user-attachments/assets/0b2ab93c-c802-40aa-a072-9129430d62d2" />
 
-<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/769be7f8-97e0-4823-a676-ad240d78caea" />
+<img width="1926" height="1403" alt="image" src="https://github.com/user-attachments/assets/99214a74-39fa-4e79-ba9d-f88eea6226bc" />
 
-<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/94b0e5c4-0190-4fb4-a7bf-617b3f6a3d51" />
+<img width="1926" height="1403" alt="image" src="https://github.com/user-attachments/assets/f2f9e72c-ac2d-47bf-bd75-eb6ae66d577c" />
 
-<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/5a2d83f0-7545-4554-b4d1-9aaff2c2c4fd" />
+<img width="1926" height="1403" alt="image" src="https://github.com/user-attachments/assets/12d7b036-4989-41f5-a124-f11d5f7b38ac" />
 
-<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/814e3d94-1f68-4fd4-aede-f1c0ab719390" />
+<img width="1926" height="1403" alt="image" src="https://github.com/user-attachments/assets/b1ca2a40-543d-43ff-89d7-c7c1f69b5558" />
 
-<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/b7d5d349-d203-4f4b-a273-b956afe743a7" />
+<img width="1926" height="1403" alt="image" src="https://github.com/user-attachments/assets/e04f8df0-9987-489f-b133-35355e85f341" />
+
+<img width="1926" height="1403" alt="image" src="https://github.com/user-attachments/assets/d78e5404-d7ed-46e5-bd36-9df12bf31e10" />
+
+
+<img width="1926" height="1403" alt="image" src="https://github.com/user-attachments/assets/2c5b4d64-fa9d-49b1-b798-713c7d76e89f" />
+
+<img width="1926" height="1403" alt="image" src="https://github.com/user-attachments/assets/aa03042e-5cc3-4a4b-b064-24a0e646073d" />
+
+<img width="1926" height="1403" alt="image" src="https://github.com/user-attachments/assets/4082b75a-c8c4-4f9b-b3ed-74a0ef00b94d" />
+
+
 
 
 
