@@ -793,6 +793,44 @@ service network restart すると、元のIPが戻り、通信可能になる
 <img width="1454" height="933" alt="Screenshot 2026-01-27 at 8 43 14" src="https://github.com/user-attachments/assets/2fa4e066-7d54-457b-8f4d-d83573b85b96" />
 
 
-RHEL4の場合
+# RHEL4の場合
 
 <img width="2035" height="1285" alt="image" src="https://github.com/user-attachments/assets/e13e4d65-ef25-4bc4-b36c-2a7b443be5d8" />
+
+
+# RHEL6
+
+```
+abc@Mac-mini Downloads % scp rhel-server-6.10-x86_64-dvd.iso root@192.168.20.30:/var/lib/libvirt/images/
+root@192.168.20.30's password: 
+rhel-server-6.10-x86_64-dvd.iso                                                                100% 3715MB 110.6MB/s   00:33    
+```
+
+とりあえず１０GBスタート　１５０にしたいが、余裕がない　
+
+<img width="1750" height="1132" alt="image" src="https://github.com/user-attachments/assets/2db2a313-b697-4a7e-af2b-047a32f8545c" />
+
+インストール
+
+<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/85a34922-48cb-4fbf-b254-74f713d0c894" />
+
+<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/051c071e-add0-41be-8850-6ba3669b3f7f" />
+
+<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/358d623b-e590-47c9-803e-f0d11aea42ff" />
+
+<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/479837d0-bbed-417e-8b91-cd0df7c479a8" />
+
+<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/13ad342e-9c53-41c2-92be-95e74efa7fa0" />
+
+<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/769be7f8-97e0-4823-a676-ad240d78caea" />
+
+<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/94b0e5c4-0190-4fb4-a7bf-617b3f6a3d51" />
+
+<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/5a2d83f0-7545-4554-b4d1-9aaff2c2c4fd" />
+
+<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/814e3d94-1f68-4fd4-aede-f1c0ab719390" />
+
+<img width="1750" height="1247" alt="image" src="https://github.com/user-attachments/assets/b7d5d349-d203-4f4b-a273-b956afe743a7" />
+
+
+
