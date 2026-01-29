@@ -842,7 +842,37 @@ rhel-server-6.10-x86_64-dvd.iso                                                 
 
 <img width="1926" height="1403" alt="image" src="https://github.com/user-attachments/assets/4082b75a-c8c4-4f9b-b3ed-74a0ef00b94d" />
 
+<img width="1926" height="1403" alt="image" src="https://github.com/user-attachments/assets/e5ded59f-9f57-4c80-bcf1-b271bf595e99" />
+
+NICがダウンしている
+
+<img width="678" height="359" alt="image" src="https://github.com/user-attachments/assets/907844d8-4bad-4349-a1dd-b9da0605c4b8" />
+
+UPするも、IPつかない
+
+<img width="594" height="172" alt="image" src="https://github.com/user-attachments/assets/04934222-8d02-4724-a9e3-143dfaad0e9e" />
+
+/etc/sysconfig/network-scripts/ifcfg-eth0　がこうなっているので、
+
+<img width="408" height="156" alt="image" src="https://github.com/user-attachments/assets/426ac5e6-2117-403c-bf00-604800653834" />
+
+こう変える
+
+<img width="372" height="125" alt="image" src="https://github.com/user-attachments/assets/fabd78d7-5191-4d00-a43c-3282b31db5b9" />
+
+networkを再起動すると、DHCPでIPがつき、
+
+<img width="605" height="269" alt="image" src="https://github.com/user-attachments/assets/e971b310-ed08-4a08-9ef7-490f4f5e7bf5" />
+
+疎通もできる
+
+<img width="499" height="147" alt="image" src="https://github.com/user-attachments/assets/bb5928d0-51c3-4f50-8cc5-01b73ea29ab6" />
 
 
+毎度の如く、アカウントを登録し、リポジトリを有効化する
 
+<img width="592" height="111" alt="image" src="https://github.com/user-attachments/assets/488d7619-b8e3-4389-8e4c-ea9e6a64012a" />
 
+```
+
+```
