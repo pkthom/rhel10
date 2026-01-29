@@ -885,5 +885,9 @@ Registering to: subscription-legacy.rhsm.redhat.com:443/subscription
 The system has been registered with ID: aaa
 The registered system name is: rhel6
 [root@rhel6 ~]# 
+```
 
+update
+```
+[root@rhel6 ~]# yum update -y
 ```
