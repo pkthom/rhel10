@@ -842,7 +842,48 @@ rhel-server-6.10-x86_64-dvd.iso                                                 
 
 <img width="1926" height="1403" alt="image" src="https://github.com/user-attachments/assets/4082b75a-c8c4-4f9b-b3ed-74a0ef00b94d" />
 
+SSH できない　RHEL 6側が提供している鍵の種類（ssh-rsa,ssh-dss）が、Mac側で危険と判断されている
+```
+abc@Mac-mini ~ % ssh root@192.168.20.57
+Unable to negotiate with 192.168.20.57 port 22: no matching host key type found. Their offer: ssh-rsa,ssh-dss
+```
+以下で行ける
+```
+abc@Mac-mini ~ % ssh -o HostKeyAlgorithms=+ssh-rsa root@192.168.20.57 
+```
+毎度の如く、レポジトリ使えない
+```
+[root@rhel6 ~]# yum update
+Failed to set locale, defaulting to C
+Loaded plugins: product-id, search-disabled-repos, security, subscription-manager
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+Setting up Update Process
+No Packages marked for Update
+```
+アカウント登録できない
+```
+[root@rhel6 ~]# subscription-manager register --username 'aaa' --password 'aaa'
+Registering to: subscription.rhsm.redhat.com:443/subscription
+Unable to verify server's identity: tlsv1 alert internal error
+[root@rhel6 ~]# 
+```
 
+以下でなおる
+```
+[root@rhel6 ~]# subscription-manager config \
+>     --server.hostname=subscription-legacy.rhsm.redhat.com \
+>     --rhsm.baseurl=https://cdn-legacy.redhat.com
+[root@rhel6 ~]# subscription-manager clean
+All local data removed
+```
+https://access.redhat.com/articles/cdn_modernization
 
+登録完了
+```
+[root@rhel6 ~]# subscription-manager register --username 'aaa' --password 'aaa'
+Registering to: subscription-legacy.rhsm.redhat.com:443/subscription
+The system has been registered with ID: aaa
+The registered system name is: rhel6
+[root@rhel6 ~]# 
 
-
+```
